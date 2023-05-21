@@ -58,22 +58,19 @@ const[showScore, setShowScore]= React.useState(false)
 return   elementObj.question === currentQuestion? {...elementObj, selectedAnswer: answer} : elementObj
        }
      ))} 
-     
-     function viewScore(){
-    
-  const allAnswer=  questionElements.map((Element)=>  Element.selectedAnswer )
- const check = allAnswer.includes("")
-setWarning(check)
-      
-         if(check===false){
-        setScore(
-                (prevScore) => prevScore + 1)
-                setShowScore(!false)
-      }
 
-        
-    }
-    
+     
+  function viewScore(){
+  const allAnswer=  questionElements.map((Element)=>  Element.selectedAnswer )
+  const check = allAnswer.includes("")
+  setWarning(check)
+  if(check===false){
+  setScore(
+          (prevScore) => prevScore + 1)
+          setShowScore(!false)
+  }
+  }
+      
   
     
 function playAgain(){
@@ -86,7 +83,7 @@ function playAgain(){
    
 }
      
-     const quizElement= questionElements.map((Element, index)=> {
+     const quizElement= questionElements.map((Element)=> {
 return  <SingleQuestion
 key= {nanoid()}
  question ={Element.question}
@@ -107,8 +104,6 @@ key= {nanoid()}
     return(
   <div className="result">     
 {quizElement}
-
-
 {Warning && <p className="text"> Answer all questions </p>}
  { showScore? <div> <button className="button" onClick={playAgain}> play again </button>
  <p className="text">`you scored {score}/5 correct answers`</p>
