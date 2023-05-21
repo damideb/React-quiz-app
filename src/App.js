@@ -5,25 +5,21 @@ import Question from './question.js'
 
 
 
- function App(){
-    
-    const[showQuiz, setShowQuiz] = React.useState(false)
- 
-     function setQuiz(){
-        setShowQuiz(!false)
-    }
-   
-    
-    return (
-        <main>
-  { 
-      showQuiz ===false? 
-  <Start quiz={setQuiz}  /> :  <Question />
- }
+    function App(){
+        const[showQuiz, setShowQuiz] = React.useState(false)
+        function setQuiz(){
+            setShowQuiz(!false)
+        }
 
-        </main>
-        
-        
-    )
+        return (
+
+            <main>
+    { 
+        showQuiz ===false? 
+    <Start quiz={setQuiz}  /> :  <Question />
     }
-    export default App
+
+            </main>
+            
+        )}
+        export default App
