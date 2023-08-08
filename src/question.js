@@ -8,9 +8,9 @@ export default function Question(){
 const[questionElements, setQuestionElements]  = React.useState([])
 const[Warning, setWarning] = React.useState(false)
 const[score, setScore] = React.useState(0)
-
 const[showScore, setShowScore]= React.useState(false)
- console.log = function(){}
+const[loading, setLoading] = React.useState(true)
+ //console.log = function(){}
  
     React.useEffect(()=>{
    if(questions.length === 0){
@@ -18,19 +18,17 @@ const[showScore, setShowScore]= React.useState(false)
         .then(res=> res.json())
         .then((data)=> {
             setQuestions(data.results);
-            
+            setLoading(false)
+           
     setQuestionElements(data.results.map((Element)=>{
-      
     return{ 
         question: Element.question,
                 value: shuffle([...Element.incorrect_answers, Element.correct_answer, ]),
                 correctAnswer: Element.correct_answer,
                 selectedAnswer: '',
-                
-     }
-     } 
-     )
-     )});}
+                }}))});
+              
+    }
      }, [questions]);
      
      
@@ -56,31 +54,36 @@ const[showScore, setShowScore]= React.useState(false)
     setQuestionElements(
         questionElements.map((elementObj)=> {
 return   elementObj.question === currentQuestion? {...elementObj, selectedAnswer: answer} : elementObj
-       }
-     ))} 
+       }))
+     
+        questionElements.map((elementObj)=> {
+return   elementObj.correctAnswer === answer? setScore((prevscore)=> prevscore+1 ): setScore((prevscore)=>prevscore)
+       })
+      } 
 
      
   function viewScore(){
+   // const correctSelectedAnswer = questionElements.filter((Element)=> {
+     // return Element.selectedAnswer===Element.correctAnswer
+ //   })
   const allAnswer=  questionElements.map((Element)=>  Element.selectedAnswer )
   const check = allAnswer.includes("")
+
   setWarning(check)
   if(check===false){
-  setScore(
-          (prevScore) => prevScore + 1)
+  // setScore(correctSelectedAnswer.length)
           setShowScore(!false)
-  }
-  }
+  }}
       
   
     
 function playAgain(){
     setQuestions([])
  setQuestionElements([])
+ setLoading(true)
  setShowScore(false)
     setScore(0)
     setWarning(false)
-    
-   
 }
      
      const quizElement= questionElements.map((Element)=> {
@@ -91,28 +94,23 @@ key= {nanoid()}
   correctAnswer={Element.correctAnswer}  
   updateAnswer={updateAnswer}
   selectedAnswer={Element.selectedAnswer}
- 
+
  />
  })
  
 
-    
-    
-
-   
- 
-    return(
-  <div className="result">     
-{quizElement}
+    return( 
+      <div className="result">        
+{quizElement} 
 {Warning && <p className="text"> Answer all questions </p>}
- { showScore? <div> <button className="button" onClick={playAgain}> play again </button>
- <p className="text">`you scored {score}/5 correct answers`</p>
- </div>:  <button className="button"
- onClick={viewScore}>Check Answer </button> }
-     
-    
- 
-        </div> 
-    )
+ { showScore?  <div> <button className="button" onClick={playAgain}> play again </button>
+ <p className="text">you scored {score}/5 correct answers</p> </div> : 
+  loading? <h3>Loading Questions...</h3> :  <button className="button"
+  onClick={viewScore}>Check Answer </button> 
+}
+        </div>
+      
+)
+  
      }
      

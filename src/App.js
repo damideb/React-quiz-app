@@ -6,11 +6,8 @@ import Question from './question.js'
 
 
     function App(){
-        const[showQuiz, setShowQuiz] = React.useState(false)
-        function setQuiz(){
-            setShowQuiz(!false)
-        }
-
+    const[showQuiz, setShowQuiz] = React.useState(false)
+        function setQuiz(){  setShowQuiz(!false) }
         return (
 
             <main>

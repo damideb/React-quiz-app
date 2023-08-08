@@ -3,32 +3,28 @@ import {decode} from 'html-entities'
 
 export default function SingleQuestion(props){
 
-    
- function handleClick(answer, currentQuestion){
+ function handleClick(currentQuestion, answer){
       props.updateAnswer(currentQuestion, answer)
+
    }
    
-    return(
-        
-       
-   <div  >
-      
+
+    return(   
+   <div>
       <p className='question'>{decode(props.question)}</p>   
-      
       <div className='option-container'>
       {
         props.options.map((answer,index)=>{
-             return  <button
-              className={`option ${answer===props.selectedAnswer? "Selected" : " " }`}
-             onClick= {()=>handleClick(answer, props.question)}
+             return  <button className={`option ${answer===props.selectedAnswer? "Selected" : " " }`}
+             onClick= {()=>handleClick(props.question, answer)}
              key={index}>{decode(answer)}</button>
              }
-             
              )
       }
-       
       </div>    
-         </div>
+         </div>  
+   
+   
          
     )
      }
