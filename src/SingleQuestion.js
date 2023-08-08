@@ -16,6 +16,7 @@ export default function SingleQuestion(props){
       {
         props.options.map((answer,index)=>{
              return  <button className={`option ${answer===props.selectedAnswer? "Selected" : " " }`}
+             disabled={props.alreadyPlayed}
              onClick= {()=>handleClick(props.question, answer)}
              key={index}>{decode(answer)}</button>
              }

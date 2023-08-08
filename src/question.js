@@ -10,6 +10,7 @@ const[Warning, setWarning] = React.useState(false)
 const[score, setScore] = React.useState(0)
 const[showScore, setShowScore]= React.useState(false)
 const[loading, setLoading] = React.useState(true)
+const[alreadyPlayed,setAlreadyplayed] = React.useState(false)
  //console.log = function(){}
  
     React.useEffect(()=>{
@@ -73,6 +74,7 @@ return   elementObj.correctAnswer === answer? setScore((prevscore)=> prevscore+1
   if(check===false){
   // setScore(correctSelectedAnswer.length)
           setShowScore(!false)
+          setAlreadyplayed(true)
   }}
       
   
@@ -84,6 +86,7 @@ function playAgain(){
  setShowScore(false)
     setScore(0)
     setWarning(false)
+    setAlreadyplayed(false)
 }
      
      const quizElement= questionElements.map((Element)=> {
@@ -91,7 +94,7 @@ return  <SingleQuestion
 key= {nanoid()}
  question ={Element.question}
   options ={Element.value}
-  correctAnswer={Element.correctAnswer}  
+alreadyPlayed={alreadyPlayed}  
   updateAnswer={updateAnswer}
   selectedAnswer={Element.selectedAnswer}
 
@@ -104,7 +107,7 @@ key= {nanoid()}
 {quizElement} 
 {Warning && <p className="text"> Answer all questions </p>}
  { showScore?  <div> <button className="button" onClick={playAgain}> play again </button>
- <p className="text">you scored {score}/5 correct answers</p> </div> : 
+ <p className="score">You scored {score} out of 5 correct answers</p> </div> : 
   loading? <h3>Loading Questions...</h3> :  <button className="button"
   onClick={viewScore}>Check Answer </button> 
 }
