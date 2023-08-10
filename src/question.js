@@ -9,12 +9,13 @@ const[questionElements, setQuestionElements]  = React.useState([])
 const[Warning, setWarning] = React.useState(false)
 const[score, setScore] = React.useState(0)
 const[showScore, setShowScore]= React.useState(false)
-const[loading, setLoading] = React.useState(true)
+const[loading, setLoading] = React.useState(false)
 const[alreadyPlayed,setAlreadyplayed] = React.useState(false)
  //console.log = function(){}
  
     React.useEffect(()=>{
    if(questions.length === 0){
+    setLoading(true)
         fetch('https://opentdb.com/api.php?amount=5&category=12&type=multiple')
         .then(res=> res.json())
         .then((data)=> {
@@ -56,29 +57,24 @@ const[alreadyPlayed,setAlreadyplayed] = React.useState(false)
         questionElements.map((elementObj)=> {
 return   elementObj.question === currentQuestion? {...elementObj, selectedAnswer: answer} : elementObj
        }))
-     
-        questionElements.map((elementObj)=> {
-return   elementObj.correctAnswer === answer? setScore((prevscore)=> prevscore+1 ): setScore((prevscore)=>prevscore)
-       })
       } 
 
      
   function viewScore(){
-   // const correctSelectedAnswer = questionElements.filter((Element)=> {
-     // return Element.selectedAnswer===Element.correctAnswer
- //   })
+   const correctSelectedAnswer = questionElements.filter((Element)=> {
+      return Element.selectedAnswer===Element.correctAnswer
+   })
   const allAnswer=  questionElements.map((Element)=>  Element.selectedAnswer )
   const check = allAnswer.includes("")
 
   setWarning(check)
   if(check===false){
-  // setScore(correctSelectedAnswer.length)
+   setScore(correctSelectedAnswer.length)
           setShowScore(!false)
           setAlreadyplayed(true)
   }}
       
   
-    
 function playAgain(){
     setQuestions([])
  setQuestionElements([])
@@ -100,6 +96,12 @@ alreadyPlayed={alreadyPlayed}
 
  />
  })
+
+ if(loading){
+  
+  return <h3 className="result">Loading Questions...</h3>
+ 
+ }
  
 
     return( 
@@ -108,7 +110,7 @@ alreadyPlayed={alreadyPlayed}
 {Warning && <p className="text"> Answer all questions </p>}
  { showScore?  <div> <button className="button" onClick={playAgain}> play again </button>
  <p className="score">You scored {score} out of 5 correct answers</p> </div> : 
-  loading? <h3>Loading Questions...</h3> :  <button className="button"
+  <button className="button"
   onClick={viewScore}>Check Answer </button> 
 }
         </div>
