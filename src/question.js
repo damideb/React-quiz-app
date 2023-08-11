@@ -10,28 +10,37 @@ const[Warning, setWarning] = React.useState(false)
 const[score, setScore] = React.useState(0)
 const[showScore, setShowScore]= React.useState(false)
 const[loading, setLoading] = React.useState(false)
+const[error,setEror] =React.useState()
 const[alreadyPlayed,setAlreadyplayed] = React.useState(false)
  //console.log = function(){}
  
     React.useEffect(()=>{
-   if(questions.length === 0){
-    setLoading(true)
-        fetch('https://opentdb.com/api.php?amount=5&category=12&type=multiple')
-        .then(res=> res.json())
-        .then((data)=> {
-            setQuestions(data.results);
-            setLoading(false)
-           
-    setQuestionElements(data.results.map((Element)=>{
-    return{ 
-        question: Element.question,
-                value: shuffle([...Element.incorrect_answers, Element.correct_answer, ]),
-                correctAnswer: Element.correct_answer,
-                selectedAnswer: '',
-                }}))});
-              
-    }
-     }, [questions]);
+      async function loadData(){
+        if(questions.length === 0){
+          setLoading(true)
+          try{
+            const response = await  fetch('https://opentdb.com/api.php?amount=5&category=12&type=multiple')
+            const data =   await response.json()
+                 setQuestions(data.results)
+         setQuestionElements(data.results.map((Element)=>{
+         return{ 
+             question: Element.question,
+                     value: shuffle([...Element.incorrect_answers, Element.correct_answer, ]),
+                     correctAnswer: Element.correct_answer,
+                     selectedAnswer: '',
+                     }}))
+                    }       
+          catch (err){
+            setEror("There was an error fetching questions")
+         
+        }finally{
+          setLoading(false)
+        }
+       }}
+          loadData() 
+      }
+
+    , [questions]);
      
      
    function shuffle(array) {
@@ -101,6 +110,9 @@ alreadyPlayed={alreadyPlayed}
   
   return <h3 className="result">Loading Questions...</h3>
  
+ }
+ if(error){
+  return <h3 className="result">{error}.</h3>
  }
  
 
