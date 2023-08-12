@@ -12,7 +12,7 @@ const[showScore, setShowScore]= React.useState(false)
 const[loading, setLoading] = React.useState(false)
 const[error,setEror] =React.useState()
 const[alreadyPlayed,setAlreadyplayed] = React.useState(false)
- //console.log = function(){}
+ console.log = function(){}
  
     React.useEffect(()=>{
       async function loadData(){
