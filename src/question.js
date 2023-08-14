@@ -35,13 +35,9 @@ const[alreadyPlayed,setAlreadyplayed] = React.useState(false)
          
         }finally{
           setLoading(false)
-        }
-       }}
+        }}}
           loadData() 
-      }
-
-    , [questions]);
-     
+      }, [questions]);
      
    function shuffle(array) {
   let currentIndex = array.length,  randomIndex;
@@ -57,7 +53,6 @@ const[alreadyPlayed,setAlreadyplayed] = React.useState(false)
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex], array[currentIndex]];
   }
-
   return array;
 }
     
@@ -107,16 +102,15 @@ alreadyPlayed={alreadyPlayed}
  })
 
  if(loading){
-  
   return <h3 className="result">Loading Questions...</h3>
- 
  }
+
  if(error){
   return <h3 className="result">{error}.</h3>
  }
  
 
-    return( 
+  return( 
       <div className="result">        
 {quizElement} 
 {Warning && <p className="text"> Answer all questions </p>}
@@ -128,6 +122,5 @@ alreadyPlayed={alreadyPlayed}
         </div>
       
 )
-  
      }
      

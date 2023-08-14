@@ -7,8 +7,6 @@ export default function SingleQuestion(props){
       props.updateAnswer(currentQuestion, answer)
 
    }
-   
-
     return(   
    <div>
       <p className='question'>{decode(props.question)}</p>   
@@ -23,10 +21,7 @@ export default function SingleQuestion(props){
              )
       }
       </div>    
-         </div>  
-   
-   
-         
+         </div>      
     )
      }
      

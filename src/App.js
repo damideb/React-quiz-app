@@ -3,20 +3,15 @@ import "./style.css"
 import Start from './start.js'
 import Question from './question.js'
 
-
-
-    function App(){
+function App(){
     const[showQuiz, setShowQuiz] = React.useState(false)
         function setQuiz(){  setShowQuiz(!false) }
         return (
-
             <main>
     { 
         showQuiz ===false? 
     <Start quiz={setQuiz}  /> :  <Question />
     }
-
-            </main>
-            
+     </main>     
         )}
         export default App
