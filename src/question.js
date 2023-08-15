@@ -21,7 +21,7 @@ const[alreadyPlayed,setAlreadyplayed] = React.useState(false)
           try{
             const response = await  fetch('https://opentdb.com/api.php?amount=5&category=12&type=multiple')
             const data =   await response.json()
-                 setQuestions(data.results)
+            setQuestions(data.results)
          setQuestionElements(data.results.map((Element)=>{
          return{ 
              question: Element.question,
