@@ -32,23 +32,21 @@ const[alreadyPlayed,setAlreadyplayed] = React.useState(false)
                     }       
           catch (err){
             setEror("There was an error fetching questions")
-         
         }finally{
           setLoading(false)
         }}}
           loadData() 
       }, [questions]);
      
+
    function shuffle(array) {
   let currentIndex = array.length,  randomIndex;
-
   // While there remain elements to shuffle.
   while (currentIndex !== 0) {
 
     // Pick a remaining element.
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
-
     // And swap it with the current element.
     [array[currentIndex], array[randomIndex]] = [
       array[randomIndex], array[currentIndex]];
@@ -63,7 +61,6 @@ return   elementObj.question === currentQuestion? {...elementObj, selectedAnswer
        }))
       } 
 
-     
   function viewScore(){
    const correctSelectedAnswer = questionElements.filter((Element)=> {
       return Element.selectedAnswer===Element.correctAnswer
@@ -81,9 +78,9 @@ return   elementObj.question === currentQuestion? {...elementObj, selectedAnswer
   
 function playAgain(){
     setQuestions([])
- setQuestionElements([])
- setLoading(true)
- setShowScore(false)
+    setQuestionElements([])
+    setLoading(true)
+    setShowScore(false)
     setScore(0)
     setWarning(false)
     setAlreadyplayed(false)
@@ -97,7 +94,6 @@ key= {nanoid()}
 alreadyPlayed={alreadyPlayed}  
   updateAnswer={updateAnswer}
   selectedAnswer={Element.selectedAnswer}
-
  />
  })
 
