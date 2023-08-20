@@ -148,7 +148,17 @@ font-size: small;
 .option:disabled{
     opacity: 0.8;
 }
-
+.score.closed{
+    display: none;
+}
+.closeButton{
+    margin-top:2.5em;
+    width: 25%;
+    font-size: 1.1rem;
+    border: 1px solid #293264;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
 
 @media (max-width:600px) {

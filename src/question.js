@@ -12,6 +12,7 @@ const[showScore, setShowScore]= React.useState(false)
 const[loading, setLoading] = React.useState(false)
 const[error,setEror] =React.useState()
 const[alreadyPlayed,setAlreadyplayed] = React.useState(false)
+const[on, setOn]= React.useState(false)
  console.log = function(){}
  
     React.useEffect(()=>{
@@ -84,6 +85,7 @@ function playAgain(){
     setScore(0)
     setWarning(false)
     setAlreadyplayed(false)
+    setOn(false)
 }
      
      const quizElement= questionElements.map((Element)=> {
@@ -97,12 +99,18 @@ alreadyPlayed={alreadyPlayed}
  />
  })
 
+
+
  if(loading){
   return <h3 className="result">Loading Questions...</h3>
  }
 
  if(error){
   return <h3 className="result">{error}.</h3>
+ }
+
+ function onToggle(){
+  setOn(!on)
  }
  
 
@@ -111,7 +119,11 @@ alreadyPlayed={alreadyPlayed}
 {quizElement} 
 {Warning && <p className="text"> Answer all questions </p>}
  { showScore?  <div> <button className="button" onClick={playAgain}> play again </button>
- <p className="score">You scored {score} out of 5 correct answers</p> </div> : 
+ <p className={`score ${on? "closed" : ""}`}>You scored {score} out of 5 correct answers <button
+ className="closeButton"
+ onClick={ onToggle}
+>close</button></p> 
+</div> : 
   <button className="button"
   onClick={viewScore}>Check Answer </button> 
 }
