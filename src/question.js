@@ -13,7 +13,7 @@ const[loading, setLoading] = React.useState(false)
 const[error,setEror] =React.useState()
 const[alreadyPlayed,setAlreadyplayed] = React.useState(false)
 const[on, setOn]= React.useState(false)
- console.log = function(){}
+
  
     React.useEffect(()=>{
       async function loadData(){
@@ -110,7 +110,7 @@ alreadyPlayed={alreadyPlayed}
  }
 
  function onToggle(){
-  setOn(!on)
+   setOn(!on)
  }
  
 
@@ -121,7 +121,7 @@ alreadyPlayed={alreadyPlayed}
  { showScore?  <div> <button className="button" onClick={playAgain}> play again </button>
  <p className={`score ${on? "closed" : ""}`}>You scored {score} out of 5 correct answers <button
  className="closeButton"
- onClick={ onToggle}
+ onClick={onToggle}
 >close</button></p> 
 </div> : 
   <button className="button"
